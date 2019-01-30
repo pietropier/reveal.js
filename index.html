@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Composition of Behaviors</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" type="text/css" href="css/fliXXr.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+ 		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+		<style type="text/css">
+		.bgimg {
+		    background-image: url("graphics/triangleATL.jpg");
+		    background-size: 100%;
+		    height:300px;
+		    background-repeat: no-repeat;
+		}
+
+		.column_four {
+		  float: left;
+		  width: 25%;
+		}
+
+		.column_three {
+		  float: left;
+		  width: 33.33%;
+		}
+
+		.column_two {
+		  float: left;
+		  width: 50%;
+		}
+
+		/* Clear floats after the columns */
+		.row:after {
+		  content: "";
+		  display: table;
+		  clear: both;
+		}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<div id="titlebox">
+						<h3 style="padding-left: 35px;"> There is Strength in Numbers</h3>
+						<!-- <flk data-heading="S">There is Strenght in Number</flk> -->
+						<p> Composition of Multi-Agent Coordinated Behaviors</p>
+					</div>
+
+					<div class="bgimg">
+					    <!-- <img style="width:100%; height:250px" src="graphics/triangleATL.jpg" alt="triangles"> -->
+					</div>		
+					<p style="padding-left: 35px;">Pietro Pierpaoli - <b>Georgia Institute of Technology</b></p>
+					<br>
+					<div class="row">
+						<div class="column_two">
+						  	<img style="height:100px;" src="graphics/GRITS.jpg" alt="GRITS">
+						</div>
+						<div class="column_two">
+						  	<img style="height:100px;" src="graphics/IRIM.jpg" alt="IRIM">
+						</div>
+					</div>
+
+				</section>
+
+				<!-- ********* -->
+				<!-- SECTION 2 -->
+				<!-- ********* -->
+				<section>
+					<section>
+						<h5>Why Multi-Agent Robotics?</h5>
+						<br>
+						<div style="float: left; width: 40%;">
+							<img style="height:240px;" src="graphics/couch.jpg" alt="EZpro">
+						</div>
+						<div style="float: left; width: 60%;">
+							<p>Consider two individuals moving a couch:
+							<ul style="list-style-type:none">
+							<li> <br> </li>
+							<li class="fragment"> &#9744 Cut the couch, lift one half each </li>
+							<li> <br> </li>
+							<li class="fragment"> <span class="fragment highlight-mine"> &#9744 Coordinate and lift the couch together </span></li>
+						</ul></p>
+						</div>
+						
+					</section>
+
+					<section>
+						<div style="text-align: left; padding:40px; background-color: #777;">
+						<table>
+							<tr>
+								<td><p><hgl>Observation:</hgl></p></td>
+								<td> <p> collaboration can produce capabilities greater than those emerging from individuals' skills </p></td>
+							</tr>
+						</table>
+						</div>
+
+						<div class="fragment">
+							<div class="column_three">
+								<img style="height:260px; width: 450px; padding-top: 10px;" src="graphics/droneBuild.jpg" alt="trucks"> <br />
+							    <img style="height:260px; width: 450px; padding-top: 10px;" src="graphics/rescueTeam.jpg" alt="trucks">
+							</div>
+
+							<div class="column_three">
+								<img style="height:260px; width: 450px; padding-top: 10px;" src="graphics/microswarm.jpg" alt="microswarm"> <br />
+							    <img style="height:260px; width: 450px; padding-top: 10px;" src="graphics/amazonRobo.png" alt="amazon">
+							</div>
+
+							<div class="column_three">
+								<img style="height:260px; width: 450px; padding-top: 10px;" src="graphics/dronesWind.jpg" alt="wind"> <br />
+							    <img style="height:260px; width: 450px; padding-top: 10px;" src="graphics/EZpro.jpg" alt="EZpro">
+							</div>
+						</div>
+					</section>
+
+					<section>
+						<div style="text-align: left; padding:40px; background-color: #777; display: block;">
+						<table>
+							<tr>
+								<td><p><hgl>Question:</hgl></p></td>
+								<td> <p> how to control (large) teams of robots? </p></td>
+								<td>  </td>
+							</tr>
+						</table>
+						</div>
+						<br> <br>
+
+							<p>Features needed for controller of multi-agent systems:</p>
+						<div class="column_two">
+							<ul style="list-style-type:none">
+								<li> <br> </li>
+								<li> <b> Safe </b> </li>
+								<li> <br> </li>
+								<li> <b> Emergent </b></li>
+							</ul>
+						</div>
+						<div class="column_two">
+							<ul style="list-style-type:none">
+								<li> <br> </li>
+								<li> <b> Local</b> </li>
+								<li> <br> </li>
+								<li> <b> Distributed</b> </li>
+							</ul>
+						</div>
+					</section>
+
+
+				</section>
+
+				<!-- ********* -->
+				<!-- SECTION 3 -->
+				<!-- ********* -->
+				<section>
+					<section>
+						<h5>Multi-Agent Coordinated Behaviors</h5>
+							<div style="background-color: #999; padding: 10px; height: 200px;" class="fragment" data-fragment-index="1">
+							<div style="float: left; width: 20%;" class="fragment" data-fragment-index="1">
+								<img style="height:150px; padding-top: 30px;" src="graphics/gritsBotX.png" alt="trucks">
+							</div>
+							<div style="float: left; width: 5%;" class="fragment" data-fragment-index="2">
+								<svg width="300" height="200">
+								    <defs>
+								        <marker id="arrow" markerWidth="13" markerHeight="13" refx="2" refy="6" orient="auto">
+								            <path d="M2,2 L2,11 L10,6 L2,2" style="fill:#ff6666;" />
+								        </marker>
+								    </defs>
+
+								    <path d="M30,100 L200,100" style="stroke:#ff6666; stroke-width: 6px; fill: none; marker-end: url(#arrow);"/>
+								    <text x="100" y="80" font-family="sans-serif" font-size="60px" fill="#ff6666">?</text>
+								</svg>
+							</div>
+							<div style="float: left; width: 75%;" class="fragment" data-fragment-index="2">
+								
+								<img style="height:150px; padding-top: 30px;" src="graphics/gritsBotX.png" alt="trucks"> &nbsp;&nbsp;&nbsp;
+								<img style="height:150px; padding-top: 30px;" src="graphics/gritsBotX.png" alt="trucks"> &nbsp;&nbsp;&nbsp;
+								<img style="height:150px; padding-top: 30px;" src="graphics/gritsBotX.png" alt="trucks">
+							
+							</div>
+							</div>
+							<br>
+						<div class="fragment" style="background-color: #999; padding: 10px; height: 300px">
+						<p> <hgl> Graph: </hgl> \( \mathcal{G}(t) = ( \mathcal{V},\mathcal{E}(t)) \) represents the flow of information in the system at time \( t \)</p>
+						<div style="float: left; width: 30%;">
+							<img style="height:220px;" src="graphics/basicGraph.pdf" alt="trucks">
+						</div>
+						<div style="float: left; width: 70%; padding-top: 20px;">
+							<p> \( \mathcal{V} \subset \mathbb{N} \) : set of agents </p>
+							<p> \( \mathcal{E} \in \mathcal{V} \times \mathcal{V}\) : set of interacting pairs </p>
+							<p> \( \mathcal{N}_i = \{ v_j \in \mathcal{V} \, | \, (v_i,v_j) \in \mathcal{E} \} \) : neighbors' set</p>
+						</div>
+						</div>
+
+						
+					</section>
+
+					<section>
+						<h5>Multi-Agent Coordinated Behaviors</h5>
+						<p> Ensemble of \(N\) robots in a \(d\)-dimensional domain:
+							<ul>
+								<li> \(i^{\text{th}}\)-agent's state: \( x_i \in \mathbb{R}^d  \)</li>
+								<li> system's state: \(  x = [ x_1^T, \dots, x_N^T]^T \in \mathbb{R}^{dN} \) </li>
+							</ul>
+						 </p>
+						 <div class="fragment">
+						<p> <br>Let's define: 
+							<ul>
+							<li> <hgl>edge potential</hgl> :
+								\( \quad \phi_{ij}( x_i-x_j )\succeq 0 : \mathbb{R}^{2d} \rightarrow \mathbb{R} \) </li>
+								<li style="list-style-type:none"> <br> </li>
+							<li> <hgl>total potential</hgl> : \( \quad \Phi(x) = \frac{1}{2}\sum_\limits{i=1}^\limits{N} \sum _\limits{j \in 	\mathcal{N}_i}\phi_{ij}(x_i-x_j) \) </li>
+						</ul>
+						</div>
+						<br>
+						<div class="fragment">
+							<div style="float: left; width: 20%;">
+								<p> By choosing: </p>
+							</div>
+							<div style="float: left; width: 40%;">
+								<p> $$ \quad \dot{x}_i = - \frac{\partial \Phi(x)}{\partial x_i} = -\sum_\limits{j \in \mathcal{N}_i}\frac{\partial \phi_{ij}}{\partial x_i} \qquad \rightarrow \qquad $$ </p>
+							</div>
+							<div style="float: left; width: 40%;">
+								<p> $$ \frac{d\Phi(x)}{dt} = -\| \frac{\partial \Phi(x)}{\partial x} \|^2 \leq 0 $$ </p>
+							</div>
+						</div>	
+
+							<div style="padding-top: 20px; float: left; width: 100%;"> <h6 style="text-align: left; padding-left: 50px; padding-right: 50px;">
+						Cortés, J., & Egerstedt, M. (2017). Coordinated Control of Multi-Robot Systems: A Survey. SICE Journal of Control, Measurement, and System Integration, 10(6), 495-503.
+						</h6> </div>
+							
+					</section>
+
+
+					<section>
+						<h5> Consensus Equation</h5>
+						<div style="float: left; width: 50%;">
+							<p> \( \quad \phi_{ij}(x_i,x_j) = \frac{1}{2}\| x_i-x_j \|^2 \)</p>
+							<br>
+							<img style="height:200px;" src="graphics/phi_rend.eps" alt="trucks">
+							<br>
+							<p> The local descent flow:
+								$$ \quad $$
+							$$  \dot{x}_i = -\sum_\limits{j \in \mathcal{N}_i}(x_i - x_j) $$
+							$$ \quad $$
+							</p>
+							
+						</div>
+
+						<div style="float: left; width: 40%;">
+							<video width="640" height="480" autoplay loop>
+						  	<source src="graphics/Rendezvous.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+						</div>
+
+						<div style="float: left; display: block;">
+						<p> <hgl> Network requirement: </hgl> \( \mathcal{G}(t) \) connected \( \forall t \geq 0 \)  </p>
+						</dir>
+
+						<div style="padding-top: 20px;"> <h6 style="text-align: left; padding-left: 50px; padding-right: 50px;">
+						Jadbabaie, A., Lin, J., & Morse, A. S. (2003). Coordination of groups of mobile autonomous agents using nearest neighbor rules. IEEE Transactions on automatic control, 48(6), 988-1001.
+						</h6> </div>
+
+						
+					</section>
+
+					<section>
+						<h5> Formation Control</h5>
+						<div style="float: left; width: 50%;">
+							<p> \( \quad \phi_{ij}(x_i,x_j) = \frac{1}{2}(\| x_i-x_j \| -\delta_{ij})^2 \) 
+							</p>
+							<br>
+							<img style="height:200px;" src="graphics/phi_form.eps" alt="trucks">
+							<br>
+							<p> The local descent flow:
+								$$ \quad $$
+							$$  \dot{x}_i = -\sum_\limits{j \in \mathcal{N}_i}(\| x_i-x_j \| - \delta_{ij})(x_i - x_j) $$
+							$$ \quad $$
+							</p>
+						</div>
+
+						<div style="float: left; width: 40%;">
+							<video width="640" height="480" autoplay loop>
+						  	<source src="graphics/formationControl_robotarium.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+						</div>
+
+						<div style="float: left; display: block;">
+						<p> <hgl> Network requirement: </hgl> \( \mathcal{G}_F=(\mathcal{V},\mathcal{E}, [\delta_{ij}]_{i,j \in \mathcal{E}}) \) must be a rigid formation graph  </p>
+						</dir>
+
+						<div style="padding-top: 20px;"> <h6 style="text-align: left; padding-left: 50px; padding-right: 50px;">
+						Olfati-Saber, R., & Murray, R. M. (2002, December). Graph rigidity and distributed formation stabilization of multi-vehicle systems. In Decision and Control, 2002, Proceedings of the 41st IEEE Conference on (Vol. 3, pp. 2965-2971). IEEE.
+						</h6> </div>
+
+					</section>
+
+					<section>
+						<div style="float: left; width: 40%;">
+							<h5>Coverage control</h5>
+					 			<p>
+					 			<hgl> Locational Cost:</hgl> 
+					 				$$ \quad $$
+					 				$$ \mathcal{S}_{cov}(x) = \sum_{i=1}^N \int_{\mathcal{V}_i(x)} \| x_i-p \|^2 \, \phi(x) \, dp$$
+					 				$$ \quad $$ </p>
+					 			<p> The local descent flow:
+					 				$$ \quad $$
+					 				$$ \dot{x}_i = -\frac{\partial \mathcal{S}_{cov}(x)}{\partial x_i} = c_i(x) - x_i $$
+					 				$$ \quad $$
+					 				\( c_i(x) \) : center of mass of the \(i^{\text{th}}\) Voronoi cell
+					 			 </p>
+
+						</div>
+						<div style="float: left; width: 60%; padding-top: 90px;">
+							<video width="640" height="480" autoplay loop>
+							  <source src="graphics/coverage.mp4" type="video/mp4">
+								Your browser does not support the video tag.
+							</video>
+						</div>
+
+						<div style="float: left; display: block;">
+						<p> <hgl> Network requirement: </hgl> \( \mathcal{G}(t) \) must contain a <i>Delaunay</i> graph </p>
+						</dir>
+
+						<div style="padding-top: 20px;"> <h6 style="text-align: left; padding-left: 50px; padding-right: 50px;">
+						Cortes, J., Martinez, S., Karatas, T., & Bullo, F. (2004). Coverage control for mobile sensing networks. IEEE Transactions on robotics and Automation, 20(2), 243-255.
+						</h6> </div>
+						
+					</section>
+
+					<section>
+							<div class="row">
+								<div class="column_three">
+								  	<video width="320" height="240" autoplay loop>
+									  <source src="graphics/cyclicPursuit.mp4" type="video/mp4">
+									Your browser does not support the video tag.
+									</video>
+								  	<p style="text-align: center"> Cyclic Pursuit </p>
+								</div>
+								<div class="column_three">
+									<video width="320" height="240" autoplay loop>
+									  <source src="graphics/formationsSequence.mp4" type="video/mp4">
+									Your browser does not support the video tag.
+									</video>								  	
+									<p style="text-align: center"> Formation Control </p>
+								</div>
+								<div class="column_three">
+									<video width="320" height="240" autoplay loop>
+									  <source src="graphics/leader-follower.mp4" type="video/mp4">
+									Your browser does not support the video tag.
+									</video>
+									<p style="text-align: center"> Leader-Follower </p>
+								</div>
+							</div>
+							<br> 
+						<h5 style="text-align: left; margin-left: 50px;"> Punchline: </h5>
+						<ul style="margin-left: 50px;">
+							<li>Local flow descent rules lead to <hgl>emergent</hgl> and <hgl>local</hgl> controllers </li>
+						<br>
+							<li> Each behavior requires a certain graph structure to work properly </li>
+						<br>
+							<li> <hgl>However</hgl>, real-world missions are not infinite repetition of single actions</li>
+				  
+						</ul>
+					</section>
+
+<!-- 					<section>
+						<h5>Cost of local rules</h5>
+						<br><br>
+					<div style="float: left; width: 50%;">
+						<img style="height:350px;" src="graphics/randG6.eps" alt="trucks">
+					</div>
+					<div style="float: left; width: 50%;">
+						<img style="height:350px;" src="graphics/randK6.eps" alt="trucks">
+					</div>
+					</section> -->
+
+				</section>
+
+
+				<!-- ********* -->
+				<!-- SECTION 4 -->
+				<!-- ********* -->
+				<section>
+
+				<section>
+					<h5>Composition of Coordinated Behaviors</h5>
+					<br>
+					<div class="fragment">
+					<p> Scoring a goal with a team of 5 robots: </p>
+
+					<div class="row">
+						<div class="column_four">
+							<img style="width:320px;" src="graphics/goalCoverage.jpg" alt="trucks">
+						  	<p style="text-align: center"> Coverage </p>
+						</div>
+						<div class="column_four">
+						<img style="width:320px;" src="graphics/goalRend.jpg" alt="trucks">
+						  	<p style="text-align: center"> Rendezvous </p>
+						</div>
+						<div class="column_four">
+						<img style="width:320px;" src="graphics/goalFormation.jpg" alt="trucks">
+							<p style="text-align: center"> Formation Control </p>
+						</div>
+						<div class="column_four">
+						<img style="width:320px;" src="graphics/goalLeaderFollower2.jpg" alt="trucks">
+						  	<p style="text-align: center"> Leader-Follower </p>
+						</div>
+					</div>
+					<br />
+
+					<p style="background-color: #666; text-align: center; padding: 30px;"> We can encode the entire <hgl> score a goal</hgl> task as a <hgl>sequence of behaviors</hgl> </p>
+					</div>
+				</section>
+
+
+				<section>
+					<h5> Composition Procedure</h5>
+					<p> Required steps: </p>
+					<ol style="padding-left:50px;">
+						<li class="fragment" style="margin-top: 30px;"> Create/Update the sequence: 
+						<div class="row">
+							<div style="float: left; width: 50%;">
+							  	<ul style="text-align: left; margin-top: 50px;"> 
+							  		<li style="font-size: 1.1em;">Encode mission through behaviors</li> 
+							  		<li style="font-size: 1.1em;">Execute sequence</li> 
+							  		<li style="font-size: 1.1em;">Update (online) sequence</li> 
+							    </ul>
+							</div>
+							<div style="float: left; width: 40%;">
+	  							<img style="width:100%; position: center;" src="graphics/chain.jpg">
+							</div>
+						</div>
+						</li>
+						<li class="fragment" style="margin-top: 30px;"> Syncronization:
+						  	<ul style="text-align: left; margin-top: 20px;"> 
+						  		<li style="font-size: 1.1em;">Switch times between behaviors</li> 
+						    </ul>
+						</li>
+						<li class="fragment" style="margin-top: 30px;"> Execute the sequence:
+							<ul style="text-align: left; margin-top: 20px;"> 
+						  		<li style="font-size: 1.1em;"> <span class="fragment highlight-mine"> Create and maintain the "conditions" required by each controller </span></li> 
+						    </ul>
+						</li>
+					</ol>
+				</section>
+
+
+				<section> <!-- System definition -->
+					<h5>Interaction model</h5>
+					<div style="float: left; width: 20%;">
+						<br>
+					</div>
+						<div style="float: left; width: 50%;">
+				 			<p style="width: 80%; text-align: justify; text-justify: inter-word;"> <hgl> \( \Delta\text{-disc} \) proximity graph: </hgl> agents share information when their separation is less than \( \Delta \)</p>
+				 		</div>
+				 		<div style="float: left; width: 30%;">
+				 			<img style="position: center; width: 80%;" src="graphics/proximityGraph.png">
+						</div>
+						<div><p>
+				 			$$ \mathcal{E}(t) = \{(v_i,v_j) \in V \times V \, | \, \| x_i(t) - x_j(t)\| \leq \Delta, \, i,j = 1,\dots,N \} $$ </p></div>
+						<div style="margin: 10px;"> <br></div>
+						<div class="fragment">
+						<h5>Constraints</h5>
+						<p>For the correct functioning of the sequence:
+							<ul style="list-style-type:none; text-align: left; float: left; padding-left: 80px;">
+								<li> <hgl>execution</hgl> constraints - during execution of each controller </li>
+								<li> <hgl>composition</hgl> constraints - during transitions between two behaviors </li>
+							</ul>
+						</p>
+						</div>
+				</section>
+
+				<section> <!-- Intro barrier functions -->
+					<h5>Control Barrier Functions</h5>
+					<div style="float: left; width: 60%;">
+						<p> Assume \(\mathcal{S} \subset D \subseteq \mathbb{R}^N \) a desired set for the state. <br>
+							Define \( h(x): \mathbb{R}^N \rightarrow \mathbb{R}\), such that:
+							$$ \quad $$
+							$$\mathcal{S} = \{ x \in \mathbb{R}^N \, | \, h(x) \geq 0 \} $$ 
+						</p>
+					</div>
+
+					<div style="float: left; width: 40%;">
+						<svg width="400" height="300">
+							<path id="venere" fill="#866BC7" stroke="white" stroke-width="0" d="M 200, 10 a 180, 135 0 1,0 1,0"/>
+						    <path id="venere" fill="#469BA7" stroke="white" stroke-width="2" d="M 200, 50 a 150, 75 0 1,0 1,0"/>
+						    <text x="170" y="100" font-family="sans-serif" font-size="30px" fill="white"> h(x) &#8805 0</text>
+						    <text x="110" y="170" font-family="sans-serif" font-size="30px" fill="white"> S</text>
+						    <text x="70" y="220" font-family="sans-serif" font-size="30px" fill="white"> D</text>
+						</svg>
+					</div>
+
+					<div class="fragment">
+					<div style="float: left; width: 50%;">
+						<p>Assume \(\alpha(\cdot)\) class-K function.
+						<br> If \( h(0) \geq 0 \):
+							<ul style="list-style-type:none; padding-left: 50px;">
+								<li> \( \dot{h}=-\alpha(h) \quad \Rightarrow \quad h(t) \searrow 0 \) </li>
+								<li> <br> </li>
+								<li style="background-color: rgba(70, 155, 167, 0.5); padding: 10px;"> 
+								\( \dot{h}(x) \geq -\alpha(h(x)) \quad \Rightarrow \quad h(x(t)) \geq 0, \, \forall t \geq 0 \) (Comparison Lemma)</li>
+							</ul>
+						</p>
+					</div>
+
+					<div style="float: left; width: 50%;">
+						<img style="position: center; width: 30%;" src="graphics/classK.png" alt="classK">
+						<img style="position: center; width: 60%;" src="graphics/hdot.png" alt="classK">
+					</div>
+					</div>
+					
+				</section>
+
+				<section>
+					<div>
+						<p style="text-align: center; padding-bottom: 40px;"> $$ \dot{h}(x) \geq -\alpha(h(x)) \quad \Rightarrow \quad h(x(t)) \geq 0, \, \forall t \geq 0 $$ </p>
+						
+					</div>
+					<div class="fragment">
+						<p>  Applying multi-agent system dynamics: \( \quad \dot{x} = f(x) + g(x)\,u \qquad x \in D \subseteq \mathbb{R}^N \quad u \in U \subseteq \mathbb{R}^m \) <br>
+						</p>
+
+						<p style="text-align: center; padding-top: 20px;padding-bottom: 20px;">  
+							$$ \dot{h}(x) = \frac{\partial h(x)}{\partial x} \dot{x} = \frac{\partial h(x)}{\partial x}(f(x)+g(x)\,u) = L_f h(x) + L_g h(x)\,u $$ 
+						</p>
+					</div>
+					<div class="fragment" >
+						<div style="float: left; width: 70%;">
+							<p style="background-color: rgba(70, 155, 167, 0.5); padding: 10px;"> 
+								Forward invariance of \( \mathcal{S} \) is <i>certified</i> by selecting a controller in:
+								$$ \quad $$
+								$$ K(x) = \{ u \in U | L_g h(x)\,u + \alpha(h(x)) + L_f h(x) \geq 0\} \quad \forall x \in D $$
+							</p>
+							<p> Thus, by choosing \( u(t) \in K(x): \) </p>
+							<ul>
+								<li style="padding-bottom: 40px;"> \( x(0) \in \mathcal{S} \quad  \Rightarrow \quad  x(t) \in \mathcal{S}, \forall t \geq 0 \quad \) 
+								(forward invariance) </li>
+								<li> \( x(0) \notin \mathcal{S} \quad \Rightarrow \quad \lim_\limits{t \rightarrow \infty} x(t) \in \mathcal{S} \quad \)
+								(robustness) 
+								</li>
+							</ul> 
+						</div>
+
+						<div style="float: left; width: 30%;">
+							<svg width="450" height="300">
+							<path id="venere" fill="#866BC7" stroke="white" stroke-width="0" d="M 200, 10 a 180, 135 0 1,0 1,0"/>
+						    <path id="venere" fill="#469BA7" stroke="white" stroke-width="2" d="M 230, 80 a 140, 65 0 1,0 1,0"/>
+						    <text x="110" y="170" font-family="sans-serif" font-size="30px" fill="white"> S</text>
+						    <text x="70" y="220" font-family="sans-serif" font-size="30px" fill="white"> D</text>
+							</svg>
+						</div>
+						</div>
+
+						<div style="float: left; width: 100%; padding-top: 40px;"> <h6 style="text-align: left; padding-left: 50px; padding-right: 50px;">
+					Xu, X., Tabuada, P., Grizzle, J. W., & Ames, A. D. (2015). Robustness of control barrier functions for safety critical control. IFAC-PapersOnLine, 48(27), 54-61.
+					</h6> </div>
+						
+
+					
+				</section>
+
+
+				<section>
+					 
+					<div>
+						<p>Each behavior can be represented by a tuple:
+							$$ \quad $$
+							$$ B_k = (\mathcal{U}_k, \, \bar{\mathcal{E}}_k, \, \Gamma_k) $$
+							$$ \quad $$</p>
+						<ul>
+							<li style="margin: 10px 0;">\( \mathcal{U}: \mathbb{R}^N \rightarrow \mathbb{R}^N \) coordinated control (e.g. \(-\frac{\partial \Phi(x)}{\partial x}\))</li>
+							<li style="margin: 10px 0;"> \(\Gamma \subset \mathbb{R}^N \) interrupt set</li>
+							<li style="margin: 10px 0;">\( \bar{\mathcal{E}} \subseteq V \times V \) interaction structure required for \( \mathcal{U}\)</li>
+						</ul>
+
+					<p> The entire mission:
+					$$ \quad $$
+					$$ \sigma = \{ B_1,\dots,B_M \} $$
+					$$ \quad $$
+					</p>
+					</div>
+				</section>
+
+				<section> <!-- Execution constraints -->
+					<h5>Execution constraints</h5>
+					<div> 
+						<p> During execution of \( B_k \): </p> 
+						<ol>
+							<li style="margin: 20px 0px;">Proximity maintenance: \( \quad \| x_i(t) - x_j(t)\| \leq \Delta \qquad \forall (i,j) \in \bar{\mathcal{E}}_k \) </li>
+							<li style="margin: 20px 0px;">Collision avoidance: 
+							\( \quad \| x_i(t) - x_j(t)\| > \delta \qquad \forall i,j=1,\dots,N \)</li>
+							<li style="margin: 20px 0px;">Obstacle avoidance:
+							\( \quad \| x_i(t) - x_o(t)\| > \delta_o \qquad \forall i=1,\dots,N \, \text{and} \, o \in \text{"obstacles"} \)</li>
+						</ol>
+					</div>
+					<div class="fragment"> 
+						<p> We encode these constraints using the following barrier functions: </p>
+						<ol>
+							<li style="margin: 20px 0px;"> \( h_{ij}^p := \Delta^2 - (x_i(t) - x_j(t))^T(x_i(t) - x_j(t)) \quad \forall (i,j)\in \bar{\mathcal{E}}_k \) </li>
+							<li style="margin: 20px 0px;"> \( h_{ij}^c := (x_i(t) - x_j(t))^T(x_i(t) - x_j(t)) - D_s^2 \quad \forall i > j \) </li>
+							<li style="margin: 20px 0px;"> \( h_{io}^o := (x_i(t) - x_o)^T P_o (x_i(t) - x_o) - 1 \quad \forall i \in V, \, o\,\in\,\text{"obstacles"} \)
+							</li>
+						</ol>
+					</li>
+					<div style="padding-top: 40px;"> <h6 style="text-align: left; padding-left: 50px; padding-right: 50px;">
+					Wang, L., Ames, A. D., & Egerstedt, M. (2016, December). Multi-objective compositions for collision-free connectivity maintenance in teams of mobile robots. In Decision and Control (CDC), 2016 IEEE 55th Conference on (pp. 2659-2664). IEEE.
+					</h6> </div>
+
+
+
+				</section>
+
+				<section>
+					<h5>Composition Constraints</h5> 
+					
+					<div style="float: left; width: 50%;">
+					<p> In order for \( B_{k+1} \) to start:
+					$$ \quad $$
+					$$ \bar{\mathcal{E}}_{k+1} \subseteq \mathcal{E}(t_s), $$
+					$$ \quad $$
+					where:
+						<ul>
+							<li style="padding-bottom: 40px; padding-top: 30px;"> \( t_s \) activation time for \( B_{k+1} \) </li>
+							<li> \( t_s \, > \) \( B_k \) end-time   </li>
+						</ul>
+
+					  </p>
+					</div>
+					<div style="float: left; width: 40%; padding-top: 60px;">
+						<img style="height:240px;" src="graphics/chainNotGlue.jpg" alt="grass">
+					</div>
+
+					<div style="float: left; width: 100%;">
+						<p>Idea: apply same proximity maintenance constraint:
+							$$ \quad $$
+						    $$ \| x_i(t) - x_j(t)\| \leq \Delta \qquad \forall (i,j) \in \bar{\mathcal{E}}_{k+1} $$
+							$$ \quad $$
+						</p>
+						<p class="fragment"> Only asymptotic convergence!  </p>
+					</div>
+
+				</section>
+
+				<section>
+					<p style="padding-bottom: 50px;"> For the correct switch between behaviors <hgl> finite time convergence </hgl> is needed </p>
+
+					<div style="text-align: left; padding:40px; background-color: #777; display: block;">
+					<p> Consider a control barrier function h, with parameters \( \rho \in [0,1), \, \gamma > 0\) defined on \( D \), and initial state \(x_0\in D \setminus \mathcal{S} \). <br>
+
+					Any Lipschitz continuous controller \( u \) in:
+					$$ \quad $$
+					$$ K(x) = \{ u \in U | L_fh(x) + Lgh(x)\,u + \gamma \, sgn(h(x))\, |h(x)|^\rho \geq 0  \} $$
+					$$ \quad $$
+					drives \(x(t)\) to \(\mathcal{S}\) within finite time \( T = \frac{1}{\gamma(1-\rho)}h(x_0)^{1-\rho} \)
+					</p>
+					</div>
+
+					<div style="padding-top: 80px;"> <h6 style="text-align: left; padding: 50px;">
+					Li, A., Wang, L., Pierpaoli, P., & Egerstedt, M. (2018, October). Formally Correct Composition of Coordinated Behaviors Using Control Barrier Certificates. In 2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) (pp. 3723-3729). IEEE.
+					</h6> </div>
+
+				</section>
+
+				
+
+				<section>
+					<h5>Minimally Invasive Controller</h5>
+					<p> Starting from a desired input \(\bar{u}\), we compute the minimally invasive certified input: </p>
+
+					<div style="text-align: left; padding:40px; background-color: #777; display: block;">
+					<p>
+						\begin{aligned}
+						\min_{u\in U} & \| \, u - \bar{u} \, \|^2 & \\
+						\text{s.t.} & & \\
+						&			L_g h_{ij}^p\,u  \geq -\alpha^p(h_{ij}^p) - L_f h_{ij}^p \qquad &\forall \, (i,j) \in \bar{\mathcal{E}}_k \\
+						&		 	L_g h_{ij}^c\,u  \geq -\alpha^c(h_{ij}^c) - L_f h_{ij}^c \qquad &\forall \, i < j  \in  V \\
+						&			L_g h_{ij}^o\,u  \geq -\alpha^o(h_{ij}^o) - L_f h_{ij}^o \qquad &\forall \, i \in V \quad o \in \text{"obstacles"} \\
+						&			L_g h_{ij}^p\,u  \geq -\gamma \, sgn(h(x))\, |h(x)|^\rho - L_f h_{ij}^p &\forall \, (i,j) \in \bar{\mathcal{E}}_{k+1}
+						\end{aligned}
+					</p>
+					</div>
+				</section>
+
+
+				<section>
+					<h5>Example: Securing a Building</h5>
+					<div style="background-color: #888; padding: 10px">
+					<img style="height:380px;" src="graphics/missionChart1.eps" alt="grass">
+					</div>
+				</section>
+
+				<section>
+					<h5>Experiment</h5>
+					<video width="960" height="720" autoplay loop>
+					  <source src="graphics/securingABuilding.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+					</video>
+
+				</section>
+
+
+				</section>
+
+				<!-- ********* -->
+				<!-- SECTION 6 -->
+				<!-- ********* -->
+				<section>
+					<section>
+						<h5>Conclusion </h5>
+					<ol style="padding-left:50px;">
+						<li class="fragment" style="margin-top: 30px;"> Something </li>
+						<li class="fragment" style="margin-top: 30px;"> Something else </li>
+						<li class="fragment" style="margin-top: 30px;"> Finally</li>
+						
+					</ol>
+
+					</section>
+					<section data-transition="slide" data-background="#353e54" data-background-transition="zoom">
+
+						<h3>Acknowledgments</h3>
+
+						<div style="display: flex;flex-wrap: wrap; padding: 0 4px;"> 
+							<div style="flex: 5%;padding: 0 4px;">
+	
+	  						</div>
+	  						<div style="flex: 25%;padding: 0 4px;">
+	  							<div><img style="height:150px;" src="graphics/magnus.jpg"> <h6>Prof. Magnus Egerstedt</h6></div>
+	  							<div><img style="height:150px;" src="graphics/sam.jpg"> <h6>Prof. Samuel Coogan</h6></div>
+
+
+	  						</div>
+	  						<div style="flex: 5%;padding: 0 4px;">
+	
+	  						</div>
+	  						<div style="flex: 20%;padding: 0 4px;">
+	  							<div><img style="height:150px;" src="graphics/gennaro.jpg"> <h6>Gennaro Notomista</h6></div>
+	  							<div><img style="height:150px;" src="graphics/anqi.jpg"> <h6>Anqi Li</h6></div>
+	  						</div>
+	  						<div style="flex: 20%;padding: 0 4px;">
+	  							<div><img style="height:150px;" src="graphics/mohit.jpg"> <h6>Mohit Srinivasan</h6></div>
+	  							<div><img style="height:150px;" src="graphics/li.jpg"> <h6>Li Wang</h6></div>
+	  						</div>
+	  						<div style="flex: 20%;padding: 0 4px;">
+	  							<div><img style="height:150px;" src="graphics/jeremy.png"> <h6>Cai Xiaoyi</h6></div>
+	  							<div><img style="height:150px;" src="graphics/sid.jpg"> <h6>Siddharth Mayya</h6></div>
+	  						</div>
+  						</div>
+
+						<br>
+						<div class="row">
+						<div class="column_four">
+						  	<img style="height:60px;" src="graphics/arl.png" alt="Darpa">
+						</div>
+						<div class="column_four">
+						  	<img style="height:60px;" src="graphics/darpa.png" alt="ARL">
+						</div>
+						<div class="column_four">
+						  	<img style="height:60px;" src="graphics/nsf.png" alt="NSF">
+						</div>
+						<div class="column_four">
+						  	<img style="height:60px;" src="graphics/onr.png" alt="ONR">
+						</div>
+					</div>
+					</section>
+
+					<section data-background="graphics/triangleATL.jpg">
+						<br><br><br><br>
+						<div id="thankyouid">
+							<c1 data-heading="i">Thank You</c1>
+						</div>
+				          
+					</section>
+					
+				</section>
+
+
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
